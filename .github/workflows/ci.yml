@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]  # Limiting to Node.js 20 for now
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v4
@@ -31,27 +31,28 @@ jobs:
     - name: Install dependencies
       run: |
         npm install -g node-gyp
-        npm ci
+        npm install
         
-    - name: Fix file permissions
+    - name: List installed packages
+      run: npm list
+        
+    - name: Check directory structure
       run: |
-        mkdir -p test-workspace
-        chmod 777 test-workspace
-      
+        pwd
+        ls -la
+        
     - name: Check TypeScript compilation
-      run: npx tsc --noEmit
+      run: |
+        echo "Running TypeScript compilation check..."
+        npx tsc --noEmit --pretty
       
     - name: Run tests with debug output
-      run: DEBUG=workspace:* npm test
+      run: |
+        echo "Setting up test environment..."
+        mkdir -p test-workspace
+        chmod 777 test-workspace
+        echo "Running tests with debug output..."
+        NODE_ENV=test DEBUG=* npm test -- --verbose
       env:
         NODE_ENV: test
-        DEBUG: "workspace:*"
-        
-    - name: Upload coverage reports
-      uses: codecov/codecov-action@v3
-      if: success()  # Only upload coverage if tests pass
-      with:
-        files: ./coverage/lcov.info
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false  # Don't fail if coverage upload fails
+        DEBUG: "*"
