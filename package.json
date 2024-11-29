@@ -1,0 +1,33 @@
+{
+  "name": "workspace-db-manager",
+  "version": "1.0.0",
+  "description": "This is a custom Model Context Protocol (MCP) server that combines filesystem monitoring and SQLite database management capabilities.",
+  "type": "module",
+  "main": "dist/workspace-db-manager.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/workspace-db-manager.js",
+    "dev": "ts-node-esm src/workspace-db-manager.ts",
+    "test": "jest",
+    "init-db": "ts-node-esm src/tools/init-core-db.ts"
+  },
+  "keywords": ["mcp", "database", "sqlite", "workspace"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "sqlite": "^5.1.1",
+    "chokidar": "^3.5.3",
+    "debug": "^4.3.4"
+  },
+  "devDependencies": {
+    "@types/sqlite3": "^3.1.11",
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.10.1",
+    "typescript": "^5.3.2",
+    "ts-node": "^10.9.1",
+    "@types/jest": "^29.5.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1"
+  }
+}

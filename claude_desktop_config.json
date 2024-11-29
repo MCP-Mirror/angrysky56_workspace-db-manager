@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "workspace_db_manager": {
+      "command": "node",
+      "args": [
+        "./workspace-db-manager.js",
+        "--config",
+        {
+          "rootPaths": [
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace",
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/sages_house",
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/servers",
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory",
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory/sages_codes"
+          ],
+          "database": {
+            "maxConnections": 10,
+            "connectionTimeout": 5000,
+            "poolSize": 5,
+            "defaultDatabases": {
+              "core": "C:/Users/angry/OneDrive/Desktop/ai_workspace/sqlite3_db_storage/core.db",
+              "personal": "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory/TylerBlaineHall.db"
+            }
+          },
+          "filesystem": {
+            "watchDepth": "infinity",
+            "pollInterval": 1000,
+            "excludePatterns": [
+              "**/node_modules/**",
+              "**/.git/**"
+            ]
+          },
+          "errorHandling": {
+            "logPath": "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory/logs/server-errors.log",
+            "maxRetries": 3,
+            "retryDelay": 1000
+          }
+        }
+      ]
+    },
+    "sqlite": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-sqlite",
+        "--db-path",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/sqlite3_db_storage/core.db"
+      ]
+    },
+    "filesystem": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "C:/Users/angry/OneDrive/Desktop",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/sages_house",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/servers",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory/sages_codes"
+      ]
+    }
+  }
+}

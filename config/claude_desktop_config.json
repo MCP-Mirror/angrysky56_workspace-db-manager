@@ -1,0 +1,91 @@
+{
+  "mcpServers": {
+    "sqlite": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-sqlite",
+        "--db-path",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/sqlite3_db_storage/core.db"
+      ]
+    },
+    "filesystem": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "C:/Users/angry/OneDrive/Desktop",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/sages_house",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/servers",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/servers/workspace-db-manager",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory",
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory/sages_codes"
+      ]
+    },
+    "postgres": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-postgres/dist/index.js",
+        "postgresql://localhost/mydb"
+      ]
+    },
+    "memory": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-memory/dist/index.js"
+      ]
+    },
+    "puppeteer": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-puppeteer/dist/index.js"
+      ]
+    },
+    "brave-search": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-brave-search/dist/index.js"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "BSAmcA2N_HqwdO9DsboEf-dWu5i8msv"
+      }
+    },
+    "google-maps": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Program Files/nodejs/node_modules/@modelcontextprotocol/server-google-maps/dist/index.js"
+      ],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "AIzaSyDjzdD_QJXlxbILY2g7gsG8W3ux9uNZcWU"
+      }
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+    "workspace-db-manager": {
+      "command": "node",
+      "args": [
+        "C:/Users/angry/OneDrive/Desktop/ai_workspace/servers/workspace-db-manager/workspace-db-manager.js",
+        "--config",
+        {
+          "rootPaths": [
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/sqlite3_db_storage",
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/memory",
+            "C:/Users/angry/OneDrive/Desktop/ai_workspace/sages_house"
+          ],
+          "database": {
+            "maxConnections": 10,
+            "connectionTimeout": 5000,
+            "poolSize": 5
+          },
+          "filesystem": {
+            "watchDepth": "infinity",
+            "pollInterval": 1000
+          }
+        }
+      ]
+    }
+  },
+  "globalShortcut": "Ctrl+Q"
+}
