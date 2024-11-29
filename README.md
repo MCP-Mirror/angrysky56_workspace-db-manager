@@ -1,3 +1,5 @@
+# WIP: Caution!!! AI code and probably wrong in many ways though it "runs".
+
 # Workspace DB Manager
 
 A TypeScript MCP (Model Context Protocol) server for managing workspace databases with filesystem integration.
