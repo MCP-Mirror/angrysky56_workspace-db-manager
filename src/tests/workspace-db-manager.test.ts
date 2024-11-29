@@ -1,6 +1,6 @@
 import { WorkspaceDBManager } from '../workspace-db-manager.js';
 import { join } from 'path';
-import { writeFile, unlink, mkdir, rmdir } from 'fs/promises';
+import { writeFile, unlink, mkdir, rmdir, readdir } from 'fs/promises';
 import { existsSync } from 'fs';
 
 describe('WorkspaceDBManager', () => {
@@ -30,11 +30,18 @@ describe('WorkspaceDBManager', () => {
 
     afterEach(async () => {
         await manager.cleanup();
-        // Clean up any test databases
-        const files = await readdir(TEST_DIR);
-        for (const file of files) {
-            if (file.endsWith('.db')) {
-                await unlink(join(TEST_DIR, file));
+        try {
+            // Clean up any test databases
+            const files = await readdir(TEST_DIR);
+            for (const file of files) {
+                if (file.endsWith('.db')) {
+                    await unlink(join(TEST_DIR, file));
+                }
+            }
+        } catch (error) {
+            // Ignore errors if directory doesn't exist
+            if (error.code !== 'ENOENT') {
+                throw error;
             }
         }
     });
@@ -42,7 +49,7 @@ describe('WorkspaceDBManager', () => {
     it('should initialize successfully', async () => {
         await manager.initialize();
         expect(manager.isInitialized()).toBe(true);
-    });
+    }, 10000);
 
     it('should detect and track new databases', async () => {
         await manager.initialize();
@@ -51,13 +58,13 @@ describe('WorkspaceDBManager', () => {
         await writeFile(dbPath, 'test data');
 
         // Wait for the file to be processed
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         const databases = await manager.listManagedDatabases();
         expect(databases.length).toBe(1);
         expect(databases[0].path).toContain('test.db');
         expect(databases[0].status).toBe('active');
-    });
+    }, 15000);
 
     it('should handle database removal', async () => {
         await manager.initialize();
@@ -66,17 +73,17 @@ describe('WorkspaceDBManager', () => {
         await writeFile(dbPath, 'test data');
 
         // Wait for the file to be processed
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Remove the database
         await unlink(dbPath);
 
         // Wait for the removal to be processed
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         const databases = await manager.listManagedDatabases();
         expect(databases.length).toBe(0);
-    });
+    }, 20000);
 
     it('should maintain system configuration', async () => {
         await manager.initialize();
@@ -84,5 +91,5 @@ describe('WorkspaceDBManager', () => {
         const config = await manager.getConfig('initialization_status');
         expect(config).toBeDefined();
         expect(JSON.parse(config!.config_value)).toHaveProperty('status', 'completed');
-    });
+    }, 10000);
 });

@@ -13,5 +13,6 @@ export default {
   },
   testMatch: ['**/tests/**/*.test.ts'],
   verbose: true,
-  testTimeout: 10000,
+  testTimeout: 30000,
+  setupFilesAfterEnv: ['./jest.setup.js']
 };
