@@ -1,3 +1,5 @@
+# WIP: Caution!!! AI code and probably wrong in many ways though it "runs".
+
 # Workspace DB Manager
 
 [![CI](https://github.com/angrysky56/workspace-db-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/angrysky56/workspace-db-manager/actions/workflows/ci.yml)
